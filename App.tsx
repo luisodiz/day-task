@@ -8,7 +8,7 @@ const Stack = createNativeStackNavigator()
 function WelcomeScreen() {
   return (
     <View>
-      <Text>Welcome</Text>
+      <Text className="font-psemi">Welcome</Text>
     </View>
   )
 }
