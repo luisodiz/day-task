@@ -1,25 +1,16 @@
 import React from 'react'
-import {View, Text} from 'react-native'
 import {NavigationContainer} from '@react-navigation/native'
-import {createNativeStackNavigator} from '@react-navigation/native-stack'
+import {SafeAreaProvider} from 'react-native-safe-area-context'
 
-const Stack = createNativeStackNavigator()
-
-function WelcomeScreen() {
-  return (
-    <View>
-      <Text className="font-psemi">Welcome</Text>
-    </View>
-  )
-}
+import MainStackNavigator from './navigation/MainStackNavigator'
 
 function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Welcome" component={WelcomeScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <MainStackNavigator />
+      </NavigationContainer>
+    </SafeAreaProvider>
   )
 }
 

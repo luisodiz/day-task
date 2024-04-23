@@ -4,12 +4,13 @@ const {fonts} = require('./assets')
 module.exports = {
   content: [
     './App.{js,jsx,ts,tsx}',
-    './screens/**/*.{js,jsx,ts,tsx}',
+    './navigation/**/*.{js,jsx,ts,tsx}',
     './components/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
     colors: {
       primary: '#212832',
+      white: '#ffffff',
       text: '#8caab9',
       textSecondary: '#ffffff',
       dark: '#000000',
