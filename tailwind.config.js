@@ -1,4 +1,4 @@
-const {fonts} = require('./assets')
+const fonts = require('./assets/fonts')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -6,12 +6,14 @@ module.exports = {
     './App.{js,jsx,ts,tsx}',
     './navigation/**/*.{js,jsx,ts,tsx}',
     './components/**/*.{js,jsx,ts,tsx}',
+    './screens/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
     colors: {
       primary: '#212832',
+      accentPrimary: '#455a64',
       white: '#ffffff',
-      text: '#8caab9',
+      textColor: '#8caab9',
       textSecondary: '#ffffff',
       dark: '#000000',
       accent: '#fed36a',
@@ -19,7 +21,7 @@ module.exports = {
     fontFamily: {
       inter: fonts.inter,
       isemi: fonts.isemi,
-      ibold: fonts.ibold,
+      imedium: fonts.imedium,
       psemi: fonts.psemi,
     },
     extend: {},

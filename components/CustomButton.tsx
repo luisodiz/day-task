@@ -3,22 +3,26 @@ import {PropsWithChildren} from 'react'
 import {View, Text, TouchableOpacity} from 'react-native'
 
 interface CustomButtonProps extends PropsWithChildren {
-  title: string
+  title?: string
   isOutline?: boolean
-  cls?: string
+  containerStyles?: string
   handlePress?: () => void
 }
 
 function CustomButton({
   title,
   isOutline = false,
-  cls,
+  containerStyles,
   children,
+  handlePress = () => {},
 }: CustomButtonProps) {
   const outlinedButtonRendered = () => (
-    <TouchableOpacity className="mt-auto" activeOpacity={0.7}>
+    <TouchableOpacity
+      className="mt-auto"
+      activeOpacity={0.7}
+      onPress={handlePress}>
       <View
-        className={`w-full flex flex-row items-center justify-center border border-white text-textSecondary p-[15px] bg-none ${cls}`}>
+        className={`w-full flex flex-row items-center justify-center border border-white text-textSecondary p-[15px] min-h-[67px] bg-none ${containerStyles}`}>
         {children ? (
           children
         ) : (
@@ -31,9 +35,12 @@ function CustomButton({
   )
 
   const buttonRendered = () => (
-    <TouchableOpacity className="mt-auto" activeOpacity={0.7}>
+    <TouchableOpacity
+      className="mt-auto"
+      activeOpacity={0.7}
+      onPress={handlePress}>
       <View
-        className={`w-full flex flex-row items-center justify-center bg-accent p-[14px] ${cls}`}>
+        className={`w-full flex flex-row items-center justify-center bg-accent p-[14px] min-h-[67px] ${containerStyles}`}>
         {children ? (
           children
         ) : (
