@@ -20,11 +20,12 @@ function InputField({
   isPassword = false,
 }: InputFieldProps) {
   const [text, setText] = useState('')
+  const [showPassword, setShowPassword] = useState<boolean>(false)
 
   return (
     <View className={containerStyles}>
       {labelText !== '' ? (
-        <Text className="font-inter text-textColor mb-[16px] text-[18px] leading-[19px]">
+        <Text className="font-inter text-textColor mb-[16px] text-lg leading-[18px]">
           {labelText}
         </Text>
       ) : null}
@@ -39,18 +40,27 @@ function InputField({
           placeholderTextColor="#617D8A"
           value={text}
           onChangeText={setText}
-          secureTextEntry={isPassword}
-          className={`w-full h-[58px] bg-accentPrimary py-[14px] text-[18px] leading-[19px] text-white text-inter ${icon ? 'px-[68px]' : 'px-[25px]'}`}
+          secureTextEntry={isPassword && !showPassword}
+          className={`w-full h-[58px] bg-accentPrimary py-[14px] text-lg leading-[19px] text-white font-inter ${icon ? 'px-[68px]' : 'px-[25px]'}`}
         />
         {isPassword && (
           <TouchableOpacity
             activeOpacity={0.7}
-            className="absolute h-full right-0 flex items-center justify-center pl-[10px] pr-[18px] z-10">
-            <icons.EyeClosed
-              width={24}
-              height={24}
-              className="text-white shrink-0"
-            />
+            className="absolute h-full right-0 flex items-center justify-center pl-[10px] pr-[18px] z-10"
+            onPress={() => setShowPassword(!showPassword)}>
+            {!showPassword ? (
+              <icons.EyeClosed
+                width={24}
+                height={24}
+                className="text-white shrink-0"
+              />
+            ) : (
+              <icons.Eye
+                width={24}
+                height={24}
+                className="text-white shrink-0"
+              />
+            )}
           </TouchableOpacity>
         )}
       </View>

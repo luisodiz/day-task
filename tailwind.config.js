@@ -1,6 +1,6 @@
 const fonts = require('./assets/fonts')
 
-/** @type {import('tailwindcss').Config} */
+/** @type {import("tailwindcss").Config} */
 module.exports = {
   content: [
     './App.{js,jsx,ts,tsx}',

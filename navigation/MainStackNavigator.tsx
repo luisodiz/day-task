@@ -4,10 +4,12 @@ import {SafeAreaView} from 'react-native-safe-area-context'
 
 import SplashScreen from '../screens/SplashScreen'
 import SignInScreen from '../screens/SignInScreen'
+import SignUpScreen from '../screens/SignUpScreen'
 
 export type MainStackParams = {
   Splash: undefined
   SignIn: undefined
+  SignUp: undefined
 }
 
 const MainStack = createNativeStackNavigator<MainStackParams>()
@@ -18,6 +20,7 @@ function MainStackNavigator() {
       <MainStack.Navigator screenOptions={{headerShown: false}}>
         <MainStack.Screen name="Splash" component={SplashScreen} />
         <MainStack.Screen name="SignIn" component={SignInScreen} />
+        <MainStack.Screen name="SignUp" component={SignUpScreen} />
       </MainStack.Navigator>
     </SafeAreaView>
   )

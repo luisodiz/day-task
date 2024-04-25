@@ -22,13 +22,11 @@ function CustomButton({
       activeOpacity={0.7}
       onPress={handlePress}>
       <View
-        className={`w-full flex flex-row items-center justify-center border border-white text-textSecondary p-[15px] min-h-[67px] bg-none ${containerStyles}`}>
+        className={`w-full flex flex-row items-center justify-center border border-white text-textSecondary py-[15px] min-h-[67px] bg-none ${containerStyles}`}>
         {children ? (
           children
         ) : (
-          <Text className="text-textSecondary font-isemi text-[18px] leading-[38px]">
-            {title}
-          </Text>
+          <Text className="text-textSecondary font-isemi text-lg">{title}</Text>
         )}
       </View>
     </TouchableOpacity>
