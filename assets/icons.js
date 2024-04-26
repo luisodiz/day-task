@@ -6,6 +6,11 @@ import Lock from './icons/lock.svg'
 import User from './icons/user.svg'
 import CheckBoxInactive from './icons/checkbox-inactive.svg'
 import CheckBoxActive from './icons/checkbox-active.svg'
+import Home from './icons/home.svg'
+import Chat from './icons/chat.svg'
+import Calendar from './icons/calendar.svg'
+import Notifications from './icons/notifications.svg'
+import AddSquare from './icons/addsquare.svg'
 
 export const icons = {
   UserTag,
@@ -16,4 +21,9 @@ export const icons = {
   Lock,
   CheckBoxInactive,
   CheckBoxActive,
+  Home,
+  Chat,
+  Calendar,
+  Notifications,
+  AddSquare,
 }
