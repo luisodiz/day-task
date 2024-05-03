@@ -36,7 +36,7 @@ function SplashScreen({navigation}: SplashScreenProps) {
           title="Let’s Start"
           isOutline
           containerStyles="mt-5"
-          handlePress={() => navigation.navigate('Index')}
+          handlePress={() => navigation.navigate('SignIn')}
         />
       </View>
     </ScrollView>

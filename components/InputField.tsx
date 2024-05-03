@@ -1,49 +1,94 @@
 import React, {useState} from 'react'
-import {TextInput, View, TouchableOpacity, Text} from 'react-native'
-
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  type TextInputProps,
+  type NativeSyntheticEvent,
+  type TextInputFocusEventData,
+} from 'react-native'
+import {SvgProps} from 'react-native-svg'
 import {icons} from '../assets/icons'
+import type {FormikTouched} from 'formik'
 
-interface InputFieldProps {
-  placeholder?: string
+export interface InputFieldProps extends TextInputProps {
+  name: string
   containerStyles?: string
-  labelText?: string
+  wrapperStyles?: string
+  icon?: React.FC<SvgProps>
   isPassword?: boolean
-  icon?: any
-  type?: string
+  errorStyles?: string
+  inputIconStyle?: string
+  label?: string
+  labelStyles?: string
+  handleChange?: (text: string) => void
+  handleBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void
+  value?: string
+  error?: string
+  touched?: FormikTouched<any>
 }
 
+// Wrapper оборачивает весь инпут вместе с лейблом, а контейнер это инпут
 function InputField({
+  name,
+  wrapperStyles,
+  containerStyles = '',
   placeholder,
-  containerStyles,
-  labelText = '',
-  icon,
-  isPassword = false,
+  secureTextEntry,
+  label,
+  labelStyles,
+  errorStyles,
+  icon: Icon,
+  inputIconStyle,
+  handleChange,
+  handleBlur,
+  value = '',
+  error,
+  touched,
+  ...props
 }: InputFieldProps) {
-  const [text, setText] = useState('')
-  const [showPassword, setShowPassword] = useState<boolean>(false)
+  const [showPassword, setShowPassword] = useState(false)
+
+  const variants = {
+    default:
+      'w-full h-full bg-accentPrimary py-[14px] px-[12px] text-lg leading-[19px] text-white font-inter',
+    withIcon:
+      'w-full h-full bg-accentPrimary py-[14px] text-lg leading-[19px] text-white font-inter px-[68px]',
+  }
 
   return (
-    <View className={containerStyles}>
-      {labelText !== '' ? (
-        <Text className="font-inter text-textColor mb-[16px] text-lg leading-[18px]">
-          {labelText}
+    <View className={`${wrapperStyles || ''}`}>
+      {label && label !== '' ? (
+        <Text
+          className={`font-inter text-textColor mb-[16px] text-lg ${labelStyles || ''}`}>
+          {label}
         </Text>
       ) : null}
-      <View className="relative">
-        {icon && (
-          <View className="absolute top-0 left-0 h-full flex items-center justify-center pl-[18px] pr-[10px] z-10">
-            {icon}
+
+      <View className={`relative h-[58px] ${containerStyles}`}>
+        {Icon && (
+          <View className="absolute top-0 left-0 h-full flex flex-row align-center items-center pl-[18px] pr-[10px] z-10">
+            <Icon
+              width={24}
+              height={24}
+              className={`${inputIconStyle || 'text-textColor'}`}
+            />
           </View>
         )}
+
         <TextInput
           placeholder={placeholder || ''}
           placeholderTextColor="#617D8A"
-          value={text}
-          onChangeText={setText}
-          secureTextEntry={isPassword && !showPassword}
-          className={`w-full h-[58px] bg-accentPrimary py-[14px] text-lg leading-[19px] text-white font-inter ${icon ? 'px-[68px]' : 'px-[25px]'}`}
+          className={`${touched && touched[name] && error ? 'border-2 border-error' : ''} ${Icon ? variants.withIcon : variants.default}`}
+          secureTextEntry={secureTextEntry && !showPassword}
+          onChangeText={handleChange}
+          onBlur={handleBlur}
+          value={value}
+          {...props}
         />
-        {isPassword && (
+
+        {secureTextEntry && (
           <TouchableOpacity
             activeOpacity={0.7}
             className="absolute h-full right-0 flex items-center justify-center pl-[10px] pr-[18px] z-10"
@@ -64,6 +109,13 @@ function InputField({
           </TouchableOpacity>
         )}
       </View>
+
+      {touched && touched[name] && error ? (
+        <Text
+          className={`text-error text-sm font-imedium mt-[3px] ${errorStyles || ''}`}>
+          {error}
+        </Text>
+      ) : null}
     </View>
   )
 }

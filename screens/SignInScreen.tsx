@@ -1,18 +1,28 @@
-import React from 'react'
-import {ScrollView, Text, View, TouchableOpacity} from 'react-native'
+import React, {useRef, useCallback} from 'react'
+import {ScrollView, Text, View} from 'react-native'
+import {useFocusEffect} from '@react-navigation/native'
 import type {NativeStackScreenProps} from '@react-navigation/native-stack'
 import type {MainStackParams} from '../navigation/MainStackNavigator'
+import {FormikProps} from 'formik/dist/types'
 
 import Logo from '../components/Logo'
-import InputField from '../components/InputField'
-import CustomButton from '../components/CustomButton'
 import ContinueWithButton from '../components/ContinueWithButton'
-import {icons} from '../assets/icons'
+import SignInForm from '../components/SignInForm'
+import {SignInFormValues} from '../components/SignInForm'
 
 interface SignInScreenProps
   extends NativeStackScreenProps<MainStackParams, 'SignIn'> {}
 
 function SignInScreen({navigation}: SignInScreenProps) {
+  const formRef = useRef<FormikProps<SignInFormValues> | null>(null)
+  const clearForm = useCallback(() => {
+    if (formRef.current) {
+      formRef.current.resetForm()
+    }
+  }, [])
+
+  useFocusEffect(clearForm)
+
   return (
     <ScrollView
       className="bg-primary flex"
@@ -27,42 +37,10 @@ function SignInScreen({navigation}: SignInScreenProps) {
           containerStyles="mb-[50px]"
           textStyles="text-2xl"
         />
-        <View>
-          <Text className="text-2xl mb-[23px] text-textSecondary font-isemi">
-            Welcome Back!
-          </Text>
-          <InputField
-            containerStyles="mb-[27px]"
-            placeholder="Type your email"
-            labelText="Email Address"
-            icon={
-              <icons.UserTag
-                width={24}
-                height={24}
-                className="text-white shrink-0"
-              />
-            }
-          />
-          <InputField
-            containerStyles="mb-[11px]"
-            placeholder="Type your password"
-            labelText="Password"
-            isPassword
-            icon={
-              <icons.Lock
-                width={24}
-                height={24}
-                className="text-white shrink-0"
-              />
-            }
-          />
-          <View className="flex">
-            <TouchableOpacity activeOpacity={0.7} className="self-end">
-              <Text className="text-white">Forgot Password</Text>
-            </TouchableOpacity>
-          </View>
-          <CustomButton title="Log in" containerStyles="mt-[38px]" />
-        </View>
+        <Text className="text-2xl mb-[23px] text-textSecondary font-isemi">
+          Welcome Back!
+        </Text>
+        <SignInForm formRef={formRef} />
         <ContinueWithButton
           message="Don't have an account?"
           buttonText="Sign Up"

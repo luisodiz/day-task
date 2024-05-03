@@ -17,6 +17,7 @@ module.exports = {
       textSecondary: '#ffffff',
       dark: '#000000',
       accent: '#fed36a',
+      error: '#b04646',
     },
     fontFamily: {
       inter: fonts.inter,
