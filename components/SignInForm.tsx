@@ -1,7 +1,8 @@
-import React, {Ref} from 'react'
+import React from 'react'
 import {Text, TouchableOpacity, View} from 'react-native'
-import {Formik, FormikProps} from 'formik'
+import {Formik} from 'formik'
 import * as Yup from 'yup'
+import type {FormikProps} from 'formik'
 
 import InputField from './InputField'
 import CustomButton from './CustomButton'
@@ -24,7 +25,7 @@ export interface SignInFormValues {
 
 interface SignInFormProps {
   initialValues: SignInFormValues
-  formRef: Ref<FormikProps<SignInFormValues>>
+  formRef: React.Ref<FormikProps<SignInFormValues>>
 }
 
 const SignInForm: React.FC<SignInFormProps> = ({formRef, initialValues}) => {

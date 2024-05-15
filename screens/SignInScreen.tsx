@@ -3,12 +3,12 @@ import {ScrollView, Text, View} from 'react-native'
 import {useFocusEffect} from '@react-navigation/native'
 import type {NativeStackScreenProps} from '@react-navigation/native-stack'
 import type {MainStackParams} from '../navigation/MainStackNavigator'
-import {FormikProps} from 'formik/dist/types'
+import type {FormikProps} from 'formik/dist/types'
 
 import Logo from '../components/Logo'
 import ContinueWithButton from '../components/ContinueWithButton'
 import SignInForm from '../components/SignInForm'
-import {SignInFormValues} from '../components/SignInForm'
+import type {SignInFormValues} from '../components/SignInForm'
 
 interface SignInScreenProps
   extends NativeStackScreenProps<MainStackParams, 'SignIn'> {}

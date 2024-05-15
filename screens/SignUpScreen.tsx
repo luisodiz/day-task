@@ -1,10 +1,9 @@
 import React from 'react'
 import {ScrollView, View, Text} from 'react-native'
-import {NativeStackScreenProps} from '@react-navigation/native-stack'
 import {useFocusEffect} from '@react-navigation/native'
-import {FormikProps} from 'formik/dist/types'
-
-import {MainStackParams} from '../navigation/MainStackNavigator'
+import type {NativeStackScreenProps} from '@react-navigation/native-stack'
+import type {FormikProps} from 'formik/dist/types'
+import type {MainStackParams} from '../navigation/MainStackNavigator'
 
 import Logo from '../components/Logo'
 import ContinueWithButton from '../components/ContinueWithButton'

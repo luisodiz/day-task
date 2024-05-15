@@ -8,9 +8,10 @@ import {
   type NativeSyntheticEvent,
   type TextInputFocusEventData,
 } from 'react-native'
-import {SvgProps} from 'react-native-svg'
-import {icons} from '../assets/icons'
 import type {FormikTouched} from 'formik'
+import type {SvgProps} from 'react-native-svg'
+
+import {icons} from '../assets/icons'
 
 export interface InputFieldProps extends TextInputProps {
   name: string

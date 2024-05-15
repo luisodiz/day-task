@@ -1,8 +1,7 @@
 import React from 'react'
-import {PropsWithChildren} from 'react'
 import {View, Text, TouchableOpacity} from 'react-native'
 
-interface CustomButtonProps extends PropsWithChildren {
+interface CustomButtonProps extends React.PropsWithChildren {
   title?: string
   isOutline?: boolean
   containerStyles?: string

@@ -1,8 +1,8 @@
 import React from 'react'
 import {Text, TouchableOpacity, View} from 'react-native'
 
-import {icons} from '../assets/icons'
 import CustomButton from './CustomButton'
+import {icons} from '../assets/icons'
 
 interface ContinueWithButtonActionProps {
   message: string

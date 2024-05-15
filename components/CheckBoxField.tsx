@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react'
+import React from 'react'
 import {Text, TouchableOpacity} from 'react-native'
 
 import {icons} from '../assets/icons'
@@ -9,7 +9,10 @@ interface CheckBoxFieldProps {
   containerStyles?: string
 }
 
-type TextOrElement = Extract<ReactNode, Element | string | null | undefined>
+type TextOrElement = Extract<
+  React.ReactNode,
+  Element | string | null | undefined
+>
 
 function CheckBoxField({
   textOrElement,
