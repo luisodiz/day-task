@@ -31,9 +31,9 @@ interface SignUpFormProps {
   formikRef: React.Ref<FormikProps<SignUpFormValues>>
 }
 
-const checkboxRendered = () => {
+const AgreeWithTermsText = () => {
   return (
-    <Text className="shrink ml-[10px]">
+    <Text className="ml-[10px] shrink">
       <Text className="text-sm font-inter text-textColor">
         I have read & agreed to DayTask{' '}
       </Text>
@@ -45,6 +45,8 @@ const checkboxRendered = () => {
 }
 
 const SignUpForm: React.FC<SignUpFormProps> = ({initialValues, formikRef}) => {
+  const [isAgreeWithTerms, setIsAgreeWithTerms] = React.useState(false)
+
   return (
     <Formik
       initialValues={initialValues}
@@ -94,9 +96,11 @@ const SignUpForm: React.FC<SignUpFormProps> = ({initialValues, formikRef}) => {
             name="password"
           />
           <CheckBoxField
-            containerStyles="mt-3"
-            textOrElement={checkboxRendered()}
-          />
+            containerStyles="w-full items-start mt-3"
+            value={isAgreeWithTerms}
+            onChange={setIsAgreeWithTerms}>
+            <AgreeWithTermsText />
+          </CheckBoxField>
           <CustomButton
             handlePress={handleSubmit}
             title="Sign Up"

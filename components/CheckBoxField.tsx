@@ -1,51 +1,41 @@
 import React from 'react'
-import {Text, TouchableOpacity} from 'react-native'
+import {TouchableOpacity} from 'react-native'
 
 import {icons} from '../assets/icons'
 
-interface CheckBoxFieldProps {
-  textOrElement?: TextOrElement
-  textStyles?: string
+interface CheckBoxFieldProps extends React.PropsWithChildren {
   containerStyles?: string
+  value?: boolean
+  onChange?: (newValue: boolean) => void
 }
 
-type TextOrElement = Extract<
-  React.ReactNode,
-  Element | string | null | undefined
->
-
-function CheckBoxField({
-  textOrElement,
-  textStyles,
+const CheckBoxField: React.FC<CheckBoxFieldProps> = ({
   containerStyles,
-}: CheckBoxFieldProps) {
-  let content
-
-  if (textOrElement == null) {
-    content = ''
-  }
-
-  if (typeof textOrElement === 'string') {
-    content = (
-      <TouchableOpacity className="shrink">
-        <Text
-          className={`ml-[10px] text-sm font-inter ${textStyles ? textStyles : 'text-textColor'}`}>
-          {textOrElement}
-        </Text>
-      </TouchableOpacity>
-    )
-  }
-
-  if (typeof textOrElement === 'object') {
-    content = textOrElement
+  children,
+  value = false,
+  onChange,
+}: CheckBoxFieldProps) => {
+  const handleChange = () => {
+    if (onChange) {
+      onChange(!value)
+    }
   }
 
   return (
     <TouchableOpacity
       activeOpacity={0.7}
-      className={`flex flex-row w-full ${typeof textOrElement === 'string' ? 'items-center' : 'items-start'} ${containerStyles ? containerStyles : ''}`}>
-      <icons.CheckBoxInactive width={24} height={24} className="text-accent" />
-      {content}
+      className={`flex flex-row ${containerStyles ? containerStyles : ''}`}
+      onPress={handleChange}>
+      {value ? (
+        <icons.CheckBoxActive width={24} height={24} className="text-accent" />
+      ) : (
+        <icons.CheckBoxInactive
+          width={24}
+          height={24}
+          className="text-textColor"
+        />
+      )}
+      {children}
     </TouchableOpacity>
   )
 }
