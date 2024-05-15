@@ -23,15 +23,11 @@ export interface SignInFormValues {
 }
 
 interface SignInFormProps {
+  initialValues: SignInFormValues
   formRef: Ref<FormikProps<SignInFormValues>>
 }
 
-function SignInForm({formRef}: SignInFormProps) {
-  const initialValues: SignInFormValues = {
-    email: '',
-    password: '',
-  }
-
+const SignInForm: React.FC<SignInFormProps> = ({formRef, initialValues}) => {
   return (
     <Formik
       initialValues={initialValues}

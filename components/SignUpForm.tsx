@@ -2,6 +2,7 @@ import React from 'react'
 import {Text, View} from 'react-native'
 import {Formik} from 'formik'
 import * as Yup from 'yup'
+import type {FormikProps} from 'formik/dist/types'
 
 import InputField from './InputField'
 import CustomButton from './CustomButton'
@@ -19,36 +20,36 @@ const SignUpSchema = Yup.object().shape({
     .required('No password provided'),
 })
 
-interface SignUpSchema {
+export interface SignUpFormValues {
   fullName: string
   email: string
   password: string
 }
 
-function SignUpForm() {
-  const initialValues: SignUpSchema = {
-    fullName: '',
-    email: '',
-    password: '',
-  }
+interface SignUpFormProps {
+  initialValues: SignUpFormValues
+  formikRef: React.Ref<FormikProps<SignUpFormValues>>
+}
 
-  function CheckboxRules() {
-    return (
-      <Text className="shrink ml-[10px]">
-        <Text className="text-sm font-inter text-textColor">
-          I have read & agreed to DayTask{' '}
-        </Text>
-        <Text className="text-sm font-inter text-accent">
-          Privacy Policy, Terms & Condition
-        </Text>
+const checkboxRendered = () => {
+  return (
+    <Text className="shrink ml-[10px]">
+      <Text className="text-sm font-inter text-textColor">
+        I have read & agreed to DayTask{' '}
       </Text>
-    )
-  }
+      <Text className="text-sm font-inter text-accent">
+        Privacy Policy, Terms & Condition
+      </Text>
+    </Text>
+  )
+}
 
+const SignUpForm: React.FC<SignUpFormProps> = ({initialValues, formikRef}) => {
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={values => console.log(values)}
+      innerRef={formikRef}
       validationSchema={SignUpSchema}>
       {({handleChange, handleSubmit, handleBlur, values, errors, touched}) => (
         <View>
@@ -94,7 +95,7 @@ function SignUpForm() {
           />
           <CheckBoxField
             containerStyles="mt-3"
-            textOrElement={<CheckboxRules />}
+            textOrElement={checkboxRendered()}
           />
           <CustomButton
             handlePress={handleSubmit}

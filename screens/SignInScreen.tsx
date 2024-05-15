@@ -14,7 +14,11 @@ interface SignInScreenProps
   extends NativeStackScreenProps<MainStackParams, 'SignIn'> {}
 
 function SignInScreen({navigation}: SignInScreenProps) {
-  const formRef = useRef<FormikProps<SignInFormValues> | null>(null)
+  const formRef = useRef<FormikProps<SignInFormValues>>(null)
+  const formInitialValues: SignInFormValues = {
+    email: '',
+    password: '',
+  }
   const clearForm = useCallback(() => {
     if (formRef.current) {
       formRef.current.resetForm()
@@ -40,7 +44,7 @@ function SignInScreen({navigation}: SignInScreenProps) {
         <Text className="text-2xl mb-[23px] text-textSecondary font-isemi">
           Welcome Back!
         </Text>
-        <SignInForm formRef={formRef} />
+        <SignInForm formRef={formRef} initialValues={formInitialValues} />
         <ContinueWithButton
           message="Don't have an account?"
           buttonText="Sign Up"
