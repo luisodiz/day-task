@@ -18,6 +18,7 @@ function SignUpScreen({navigation}: SignUpScreenProps) {
     fullName: '',
     email: '',
     password: '',
+    isAgreeWithTerms: false,
   }
 
   useFocusEffect(

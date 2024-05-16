@@ -18,12 +18,16 @@ const SignUpSchema = Yup.object().shape({
     .min(8, 'Password must be at least 8 characters')
     .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.')
     .required('No password provided'),
+  isAgreeWithTerms: Yup.bool()
+    .oneOf([true], 'You must agree to the user agreement')
+    .required(),
 })
 
 export interface SignUpFormValues {
   fullName: string
   email: string
   password: string
+  isAgreeWithTerms: boolean
 }
 
 interface SignUpFormProps {
@@ -45,15 +49,21 @@ const AgreeWithTermsText = () => {
 }
 
 const SignUpForm: React.FC<SignUpFormProps> = ({initialValues, formikRef}) => {
-  const [isAgreeWithTerms, setIsAgreeWithTerms] = React.useState(false)
-
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={values => console.log(values)}
       innerRef={formikRef}
       validationSchema={SignUpSchema}>
-      {({handleChange, handleSubmit, handleBlur, values, errors, touched}) => (
+      {({
+        handleChange,
+        handleSubmit,
+        handleBlur,
+        values,
+        errors,
+        touched,
+        setFieldValue,
+      }) => (
         <View>
           <InputField
             wrapperStyles="mb-[10px]"
@@ -97,8 +107,11 @@ const SignUpForm: React.FC<SignUpFormProps> = ({initialValues, formikRef}) => {
           />
           <CheckBoxField
             containerStyles="w-full items-start mt-3"
-            value={isAgreeWithTerms}
-            onChange={setIsAgreeWithTerms}>
+            value={values.isAgreeWithTerms}
+            onChange={nextValue => {
+              return setFieldValue('isAgreeWithTerms', nextValue)
+            }}
+            error={errors.isAgreeWithTerms}>
             <AgreeWithTermsText />
           </CheckBoxField>
           <CustomButton
