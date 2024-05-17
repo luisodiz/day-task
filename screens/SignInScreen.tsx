@@ -1,14 +1,17 @@
 import React, {useRef, useCallback} from 'react'
-import {ScrollView, Text, View} from 'react-native'
+import {ScrollView, Text, TouchableOpacity, View} from 'react-native'
 import {useFocusEffect} from '@react-navigation/native'
 import type {NativeStackScreenProps} from '@react-navigation/native-stack'
 import type {MainStackParams} from '../navigation/MainStackNavigator'
 import type {FormikProps} from 'formik/dist/types'
 
-import Logo from '../components/Logo'
-import ContinueWithButton from '../components/ContinueWithButton'
-import SignInForm from '../components/SignInForm'
-import type {SignInFormValues} from '../components/SignInForm'
+import Logo from '../components/Logo/Logo'
+import SignInForm, {
+  type SignInFormValues,
+} from '../components/SignInForm/SignInForm'
+import ContinueLine from '../components/ContinueLine/ContinueLine'
+import CustomButton from '../components/CustomButton/CustomButton'
+import {icons} from '../assets/icons'
 
 interface SignInScreenProps
   extends NativeStackScreenProps<MainStackParams, 'SignIn'> {}
@@ -45,13 +48,22 @@ function SignInScreen({navigation}: SignInScreenProps) {
           Welcome Back!
         </Text>
         <SignInForm formRef={formRef} initialValues={formInitialValues} />
-        <ContinueWithButton
-          message="Don't have an account?"
-          buttonText="Sign Up"
-          handlePress={() => {
-            navigation.navigate('SignUp')
-          }}
-        />
+
+        <ContinueLine containerStyles="my-[27px]" />
+
+        <CustomButton isOutlined icon={icons.Google} text="Google" />
+        <View className="flex flex-row justify-center mt-[25px]">
+          <Text className="font-imedium text-base text-textColor">
+            Don’t have an account?
+          </Text>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate('SignUp')}>
+            <Text className="font-isemi text-base text-accent ml-1">
+              Sign Up
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </ScrollView>
   )

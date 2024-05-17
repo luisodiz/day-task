@@ -3,9 +3,9 @@ import {View, ImageBackground, Text, ScrollView} from 'react-native'
 import type {NativeStackScreenProps} from '@react-navigation/native-stack'
 import type {MainStackParams} from '../navigation/MainStackNavigator'
 
-import Logo from '../components/Logo'
+import Logo from '../components/Logo/Logo'
 import {images} from '../assets/images'
-import CustomButton from '../components/CustomButton'
+import CustomButton from '../components/CustomButton/CustomButton'
 
 interface SplashScreenProps
   extends NativeStackScreenProps<MainStackParams, 'Splash'> {}
@@ -33,10 +33,9 @@ function SplashScreen({navigation}: SplashScreenProps) {
           Manage your Task with <Text className="text-accent">DayTask</Text>
         </Text>
         <CustomButton
-          title="Let’s Start"
-          isOutline
+          text="Let’s Start"
           containerStyles="mt-5"
-          handlePress={() => navigation.navigate('SignIn')}
+          onPress={() => navigation.navigate('SignIn')}
         />
       </View>
     </ScrollView>

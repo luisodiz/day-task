@@ -1,13 +1,17 @@
 import React from 'react'
-import {ScrollView, View, Text} from 'react-native'
+import {ScrollView, View, Text, TouchableOpacity} from 'react-native'
 import {useFocusEffect} from '@react-navigation/native'
 import type {NativeStackScreenProps} from '@react-navigation/native-stack'
 import type {FormikProps} from 'formik/dist/types'
 import type {MainStackParams} from '../navigation/MainStackNavigator'
 
-import Logo from '../components/Logo'
-import ContinueWithButton from '../components/ContinueWithButton'
-import SignUpForm, {type SignUpFormValues} from '../components/SignUpForm'
+import Logo from '../components/Logo/Logo'
+import SignUpForm, {
+  type SignUpFormValues,
+} from '../components/SignUpForm/SignUpForm'
+import ContinueLine from '../components/ContinueLine/ContinueLine'
+import CustomButton from '../components/CustomButton/CustomButton'
+import {icons} from '../assets/icons'
 
 interface SignUpScreenProps
   extends NativeStackScreenProps<MainStackParams, 'SignUp'> {}
@@ -48,13 +52,19 @@ function SignUpScreen({navigation}: SignUpScreenProps) {
         </Text>
         <SignUpForm formikRef={formikRef} initialValues={formInitialValues} />
       </View>
-      <ContinueWithButton
-        message="Already have an account?"
-        buttonText="Log in"
-        handlePress={() => {
-          navigation.navigate('SignIn')
-        }}
-      />
+      <ContinueLine containerStyles="my-[27px]" />
+
+      <CustomButton isOutlined icon={icons.Google} text="Google" />
+      <View className="flex flex-row justify-center mt-[25px]">
+        <Text className="font-imedium text-base text-textColor">
+          Already have an account?
+        </Text>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => navigation.navigate('SignIn')}>
+          <Text className="font-isemi text-base text-accent ml-1">Log in</Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   )
 }
