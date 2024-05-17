@@ -1,8 +1,11 @@
 import React from 'react'
 import {Text, View} from 'react-native'
 import {Formik} from 'formik'
+import Toast from 'react-native-toast-message'
 import * as Yup from 'yup'
-import type {FormikProps} from 'formik/dist/types'
+import auth from '@react-native-firebase/auth'
+import {genSalt, hash} from 'bcrypt-ts'
+import type {FormikHelpers, FormikProps} from 'formik/dist/types'
 
 import InputField from '../Form/InputField/InputField'
 import PasswordField from '../Form/PasswordField/PasswordField'
@@ -37,10 +40,45 @@ interface SignUpFormProps {
 }
 
 const SignUpForm: React.FC<SignUpFormProps> = ({initialValues, formikRef}) => {
+  const showToast = () => {
+    Toast.show({
+      type: 'success',
+      text1: 'NICE AUTHORIZATION',
+      position: 'bottom',
+    })
+  }
+
+  const handleSubmit: (
+    values: SignUpFormValues,
+    formikHelpers: FormikHelpers<SignUpFormValues>,
+  ) => void | Promise<any> = async values => {
+    try {
+      const {email, password} = values
+      const salt = await genSalt(10)
+      const hashedPassword = await hash(password, salt)
+      await auth().createUserWithEmailAndPassword(email, hashedPassword)
+      showToast()
+    } catch (e) {
+      console.log('Authorization: Something went wrong')
+    }
+
+    // auth()
+    //   .createUserWithEmailAndPassword(
+    //     'jane.doe@example.com',
+    //     'SuperSecretPassword!',
+    //   )
+    //   .then(() => console.log('User account created'))
+    //   .catch(error => {
+    //     if (error.code === 'auth/email-already-in-use') {
+    //       console.log('That email address is already in use')
+    //     }
+    //   })
+  }
+
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={values => console.log(values)}
+      onSubmit={handleSubmit}
       innerRef={formikRef}
       validationSchema={SignUpSchema}>
       {({

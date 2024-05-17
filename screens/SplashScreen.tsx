@@ -1,5 +1,6 @@
 import React from 'react'
 import {View, ImageBackground, Text, ScrollView} from 'react-native'
+import auth from '@react-native-firebase/auth'
 import type {NativeStackScreenProps} from '@react-navigation/native-stack'
 import type {MainStackParams} from '../navigation/MainStackNavigator'
 
@@ -11,6 +12,29 @@ interface SplashScreenProps
   extends NativeStackScreenProps<MainStackParams, 'Splash'> {}
 
 function SplashScreen({navigation}: SplashScreenProps) {
+  // const [initializing, setInitializing] = React.useState(true)
+  // const [user, setUser] = React.useState(null)
+  //
+  // const onAuthStateChanged = user => {
+  //   setUser(user)
+  //   if (initializing) {
+  //     setInitializing(false)
+  //   }
+  // }
+  //
+  // React.useEffect(() => {
+  //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged)
+  //   return subscriber
+  // }, [])
+  //
+  // if (initializing) {
+  //   return null
+  // }
+  //
+  // if (!user) {
+  //   navigation.navigate('SignIn')
+  // }
+
   return (
     <ScrollView
       className="bg-primary flex"

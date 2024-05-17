@@ -1,6 +1,7 @@
 import React from 'react'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
 import {SafeAreaView} from 'react-native-safe-area-context'
+import Toast from 'react-native-toast-message'
 
 import SplashScreen from '../screens/SplashScreen'
 import SignInScreen from '../screens/SignInScreen'
@@ -25,6 +26,7 @@ function MainStackNavigator() {
         <MainStack.Screen name="SignUp" component={SignUpScreen} />
         <MainStack.Screen name="Index" component={TabNavigator} />
       </MainStack.Navigator>
+      <Toast />
     </SafeAreaView>
   )
 }
