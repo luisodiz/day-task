@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "366552772466",
+    "project_id": "day-task-ce1ee",
+    "storage_bucket": "day-task-ce1ee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:366552772466:android:f8c3ee09a45c4ee9ff77eb",
+        "android_client_info": {
+          "package_name": "com.daytask"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBa-xpUbk1U4oX-UymDKQeU41WqKam8HcE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
