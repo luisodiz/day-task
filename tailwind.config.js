@@ -19,7 +19,7 @@ module.exports = {
       accent: '#fed36a',
       error: '#b04646',
       disabledBg: '#556b75',
-      disabled: '#9fb0b9',
+      disabled: '#c4d6df',
     },
     fontFamily: {
       inter: fonts.inter,
