@@ -3,13 +3,8 @@ import {Text, View} from 'react-native'
 import {Formik} from 'formik'
 import Toast from 'react-native-toast-message'
 import * as Yup from 'yup'
-import auth from '@react-native-firebase/auth'
 import {genSalt, hash} from 'bcrypt-ts'
-import type {
-  FormikHelpers,
-  FormikProps,
-  FormikHandlers,
-} from 'formik/dist/types'
+import type {FormikHelpers, FormikProps} from 'formik/dist/types'
 
 import InputField from '../Form/InputField/InputField'
 import PasswordField from '../Form/PasswordField/PasswordField'
@@ -23,8 +18,8 @@ const SignUpSchema = Yup.object().shape({
     .email('Invalid email address')
     .required('No email provided'),
   password: Yup.string()
-    .min(8, 'PasswordField must be at least 8 characters')
-    .matches(/[a-zA-Z]/, 'PasswordField can only contain Latin letters.')
+    .min(6, 'Password must be at least 6 characters')
+    .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.')
     .required('No password provided'),
   isAgreeWithTerms: Yup.bool()
     .oneOf([true], 'You must agree to the user agreement')

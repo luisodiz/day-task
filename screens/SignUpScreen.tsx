@@ -45,19 +45,20 @@ function SignUpScreen({navigation}: SignUpScreenProps) {
     try {
       await sleep(1000)
       const {fullName, email, password} = values
+      if (!fullName || !email || !password) {
+        throw new Error('Not all form fields are filled in')
+      }
       const credentials = await auth().createUserWithEmailAndPassword(
         email,
         password,
       )
-      if (credentials.additionalUserInfo?.isNewUser) {
-        const userId = credentials.user.uid
-        await db.ref(`/users/${userId}`).set({
-          ...credentials.user.toJSON(),
-          fullName,
-        })
-        formikHelpers.resetForm()
-        navigation.navigate('Index')
-      }
+      const userId = credentials.user.uid
+      await db.ref(`/users/${userId}`).set({
+        ...credentials.user.toJSON(),
+        fullName,
+      })
+      formikHelpers.resetForm()
+      navigation.navigate('Index')
     } catch (error) {
       if (isErrorAuthError(error)) {
         console.log('Authorization: Something went wrong')
@@ -69,9 +70,32 @@ function SignUpScreen({navigation}: SignUpScreenProps) {
           )
           return
         }
+
+        if (error.code === 'auth/invalid-email') {
+          formikHelpers.setFieldError('email', 'Invalid email address')
+          return
+        }
+
+        if (error.code === 'auth/weak-password') {
+          formikHelpers.setFieldError(
+            'password',
+            'Password must be at least 6 characters',
+          )
+          return
+        }
+
+        if (error.code === 'auth/network-request-failed') {
+          console.log('Network Error')
+          return
+        }
       }
 
-      console.log(error)
+      if (error instanceof Error) {
+        console.log(error.message)
+        return
+      }
+
+      throw error
     }
   }
 
