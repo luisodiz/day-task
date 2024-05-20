@@ -1,5 +1,10 @@
 import React from 'react'
-import {Text, TouchableOpacity, View} from 'react-native'
+import {
+  type GestureResponderEvent,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 import {Formik} from 'formik'
 import * as Yup from 'yup'
 import type {FormikProps} from 'formik'
@@ -27,9 +32,14 @@ export interface SignInFormValues {
 interface SignInFormProps {
   initialValues: SignInFormValues
   formRef: React.Ref<FormikProps<SignInFormValues>>
+  onForgotPasswordPress?: (event: GestureResponderEvent) => void
 }
 
-const SignInForm: React.FC<SignInFormProps> = ({formRef, initialValues}) => {
+const SignInForm: React.FC<SignInFormProps> = ({
+  formRef,
+  initialValues,
+  onForgotPasswordPress,
+}) => {
   return (
     <Formik
       initialValues={initialValues}
@@ -63,7 +73,10 @@ const SignInForm: React.FC<SignInFormProps> = ({formRef, initialValues}) => {
             />
           </View>
           <View className="flex">
-            <TouchableOpacity activeOpacity={0.7} className="self-end">
+            <TouchableOpacity
+              activeOpacity={0.7}
+              className="self-end"
+              onPress={onForgotPasswordPress}>
               <Text className="text-white mt-2">Forgot Password</Text>
             </TouchableOpacity>
           </View>

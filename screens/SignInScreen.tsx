@@ -22,6 +22,12 @@ function SignInScreen({navigation}: SignInScreenProps) {
     email: '',
     password: '',
   }
+
+  const handleForgotPassword = React.useCallback(
+    () => navigation.navigate('ForgotPassword'),
+    [],
+  )
+
   const clearForm = useCallback(() => {
     if (formRef.current) {
       formRef.current.resetForm()
@@ -47,7 +53,11 @@ function SignInScreen({navigation}: SignInScreenProps) {
         <Text className="text-2xl mb-[23px] text-textSecondary font-isemi">
           Welcome Back!
         </Text>
-        <SignInForm formRef={formRef} initialValues={formInitialValues} />
+        <SignInForm
+          formRef={formRef}
+          initialValues={formInitialValues}
+          onForgotPasswordPress={handleForgotPassword}
+        />
 
         <ContinueLine containerStyles="my-[27px]" />
 

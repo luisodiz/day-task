@@ -6,6 +6,7 @@ import Toast from 'react-native-toast-message'
 import SplashScreen from '../screens/SplashScreen'
 import SignInScreen from '../screens/SignInScreen'
 import SignUpScreen from '../screens/SignUpScreen'
+import ForgotPasswordScreen from '../screens/ForgotPasswordScreen'
 import TabNavigator from './TabNavigator'
 
 export type MainStackParams = {
@@ -13,6 +14,7 @@ export type MainStackParams = {
   SignIn: undefined
   SignUp: undefined
   Index: undefined
+  ForgotPassword: undefined
 }
 
 const MainStack = createNativeStackNavigator<MainStackParams>()
@@ -23,6 +25,10 @@ function MainStackNavigator() {
       <MainStack.Navigator screenOptions={{headerShown: false}}>
         <MainStack.Screen name="Splash" component={SplashScreen} />
         <MainStack.Screen name="SignIn" component={SignInScreen} />
+        <MainStack.Screen
+          name="ForgotPassword"
+          component={ForgotPasswordScreen}
+        />
         <MainStack.Screen name="SignUp" component={SignUpScreen} />
         <MainStack.Screen name="Index" component={TabNavigator} />
       </MainStack.Navigator>

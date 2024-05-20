@@ -26,7 +26,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
 
   return (
     <TouchableOpacity
-      className={`w-full flex flex-row p-[14px] h-[67px] items-center justify-center ${containerStyles ? containerStyles : ''} ${isOutlined ? variants.outlined : variants.default}`}
+      className={`w-full flex flex-row p-[14px] min-h-[67px] items-center justify-center ${containerStyles ? containerStyles : ''} ${isOutlined ? variants.outlined : variants.default}`}
       activeOpacity={0.7}
       {...props}>
       {Icon && (
