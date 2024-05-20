@@ -18,6 +18,8 @@ module.exports = {
       dark: '#000000',
       accent: '#fed36a',
       error: '#b04646',
+      disabledBg: '#b7c7ce',
+      disabled: '#959fad',
     },
     fontFamily: {
       inter: fonts.inter,

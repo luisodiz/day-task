@@ -19,6 +19,7 @@ export interface InputProps extends TextInputProps {
   onRightIconPress?: () => void
   error?: string
   touched?: boolean
+  editable?: boolean
 }
 
 const InputField: React.FC<InputProps> = ({
@@ -30,6 +31,7 @@ const InputField: React.FC<InputProps> = ({
   onRightIconPress,
   error,
   touched,
+  editable = true,
   ...props
 }) => {
   const handleLeftIconPress = React.useCallback(() => {
@@ -58,12 +60,16 @@ const InputField: React.FC<InputProps> = ({
             activeOpacity={onLeftIconPress ? 0.7 : 1}
             className="absolute top-0 left-0 w-[52px] h-full flex justify-center items-center z-10"
             onPress={handleLeftIconPress}>
-            <IconLeft width={24} height={24} className="text-white shrink-0" />
+            <IconLeft
+              width={24}
+              height={24}
+              className={`text-white shrink-0 ${!editable ? 'text-disabled' : ''}`}
+            />
           </TouchableOpacity>
         )}
         <TextInput
           placeholderTextColor="#617D8A"
-          className={`w-full h-full bg-accentPrimary border-none py-[14px] px-[24px] text-lg leading-[19px] text-white font-inter ${IconLeft ? 'pl-[52px]' : ''} ${IconRight ? 'pr-[52px]' : ''} ${containerStyles ? containerStyles : ''} ${error && touched ? 'border-2 border-error' : ''}`}
+          className={`w-full h-full bg-accentPrimary border-none py-[14px] px-[24px] text-lg leading-[19px] text-white font-inter ${IconLeft ? 'pl-[52px]' : ''} ${IconRight ? 'pr-[52px]' : ''} ${containerStyles ? containerStyles : ''} ${error && touched ? 'border-2 border-error' : ''} ${!editable ? 'bg-disabledBg text-disabled' : ''}`}
           {...props}
         />
         {IconRight && (
@@ -71,7 +77,11 @@ const InputField: React.FC<InputProps> = ({
             activeOpacity={onRightIconPress ? 0.7 : 1}
             className="absolute top-0 right-0 w-[52px] h-full flex justify-center items-center z-10"
             onPress={handleRightIconPress}>
-            <IconRight width={24} height={24} className="text-white shrink-0" />
+            <IconRight
+              width={24}
+              height={24}
+              className={`text-white shrink-0 ${!editable ? 'text-disabled' : ''}`}
+            />
           </TouchableOpacity>
         )}
       </View>

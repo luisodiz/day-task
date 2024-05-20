@@ -5,7 +5,11 @@ import Toast from 'react-native-toast-message'
 import * as Yup from 'yup'
 import auth from '@react-native-firebase/auth'
 import {genSalt, hash} from 'bcrypt-ts'
-import type {FormikHelpers, FormikProps} from 'formik/dist/types'
+import type {
+  FormikHelpers,
+  FormikProps,
+  FormikHandlers,
+} from 'formik/dist/types'
 
 import InputField from '../Form/InputField/InputField'
 import PasswordField from '../Form/PasswordField/PasswordField'
@@ -37,43 +41,24 @@ export interface SignUpFormValues {
 interface SignUpFormProps {
   initialValues: SignUpFormValues
   formikRef: React.Ref<FormikProps<SignUpFormValues>>
-}
-
-const SignUpForm: React.FC<SignUpFormProps> = ({initialValues, formikRef}) => {
-  const showToast = () => {
-    Toast.show({
-      type: 'success',
-      text1: 'NICE AUTHORIZATION',
-      position: 'bottom',
-    })
-  }
-
-  const handleSubmit: (
+  handleSubmit: (
     values: SignUpFormValues,
     formikHelpers: FormikHelpers<SignUpFormValues>,
-  ) => void | Promise<any> = async values => {
-    try {
-      const {email, password} = values
-      const salt = await genSalt(10)
-      const hashedPassword = await hash(password, salt)
-      await auth().createUserWithEmailAndPassword(email, hashedPassword)
-      showToast()
-    } catch (e) {
-      console.log('Authorization: Something went wrong')
-    }
+  ) => void | Promise<any>
+}
 
-    // auth()
-    //   .createUserWithEmailAndPassword(
-    //     'jane.doe@example.com',
-    //     'SuperSecretPassword!',
-    //   )
-    //   .then(() => console.log('User account created'))
-    //   .catch(error => {
-    //     if (error.code === 'auth/email-already-in-use') {
-    //       console.log('That email address is already in use')
-    //     }
-    //   })
-  }
+const SignUpForm: React.FC<SignUpFormProps> = ({
+  initialValues,
+  formikRef,
+  handleSubmit,
+}) => {
+  // const showToast = () => {
+  //   Toast.show({
+  //     type: 'success',
+  //     text1: 'NICE AUTHORIZATION',
+  //     position: 'bottom',
+  //   })
+  // }
 
   return (
     <Formik
@@ -90,6 +75,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({initialValues, formikRef}) => {
         touched,
         setFieldValue,
         setFieldTouched,
+        isSubmitting,
       }) => (
         <View>
           <View className="mb-[12px]">
@@ -102,6 +88,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({initialValues, formikRef}) => {
               onBlur={handleBlur('fullName')}
               error={errors.fullName}
               touched={touched.fullName}
+              editable={!isSubmitting}
             />
           </View>
           <View className="mb-[12px]">
@@ -114,6 +101,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({initialValues, formikRef}) => {
               onBlur={handleBlur('email')}
               error={errors.email}
               touched={touched.email}
+              editable={!isSubmitting}
             />
           </View>
           <View>
@@ -126,6 +114,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({initialValues, formikRef}) => {
               onBlur={handleBlur('password')}
               error={errors.password}
               touched={touched.password}
+              editable={!isSubmitting}
             />
           </View>
           <CheckBoxField

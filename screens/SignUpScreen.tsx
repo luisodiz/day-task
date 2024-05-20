@@ -2,8 +2,9 @@ import React from 'react'
 import {ScrollView, View, Text, TouchableOpacity} from 'react-native'
 import {useFocusEffect} from '@react-navigation/native'
 import type {NativeStackScreenProps} from '@react-navigation/native-stack'
-import type {FormikProps} from 'formik/dist/types'
+import type {FormikHelpers, FormikProps} from 'formik/dist/types'
 import type {MainStackParams} from '../navigation/MainStackNavigator'
+import auth, {type FirebaseAuthTypes} from '@react-native-firebase/auth'
 
 import Logo from '../components/Logo/Logo'
 import SignUpForm, {
@@ -12,6 +13,18 @@ import SignUpForm, {
 import ContinueLine from '../components/ContinueLine/ContinueLine'
 import CustomButton from '../components/CustomButton/CustomButton'
 import {icons} from '../assets/icons'
+import {db} from '../firebase/db'
+
+const sleep = (ms: number) => new Promise(r => setTimeout(r, ms))
+
+function isErrorAuthError(
+  error: unknown,
+): error is FirebaseAuthTypes.NativeFirebaseAuthError {
+  return (
+    (error as FirebaseAuthTypes.NativeFirebaseAuthError).code !== undefined &&
+    (error as FirebaseAuthTypes.NativeFirebaseAuthError).userInfo !== undefined
+  )
+}
 
 interface SignUpScreenProps
   extends NativeStackScreenProps<MainStackParams, 'SignUp'> {}
@@ -23,6 +36,43 @@ function SignUpScreen({navigation}: SignUpScreenProps) {
     email: '',
     password: '',
     isAgreeWithTerms: false,
+  }
+
+  const handleSubmitForm: (
+    values: SignUpFormValues,
+    formikHelpers: FormikHelpers<SignUpFormValues>,
+  ) => void | Promise<any> = async (values, formikHelpers) => {
+    try {
+      await sleep(1000)
+      const {fullName, email, password} = values
+      const credentials = await auth().createUserWithEmailAndPassword(
+        email,
+        password,
+      )
+      if (credentials.additionalUserInfo?.isNewUser) {
+        const userId = credentials.user.uid
+        await db.ref(`/users/${userId}`).set({
+          ...credentials.user.toJSON(),
+          fullName,
+        })
+        formikHelpers.resetForm()
+        navigation.navigate('Index')
+      }
+    } catch (error) {
+      if (isErrorAuthError(error)) {
+        console.log('Authorization: Something went wrong')
+        if (error.code === 'auth/email-already-in-use') {
+          console.log('The email address is already in use by another account.')
+          formikHelpers.setFieldError(
+            'email',
+            'The email address is already in use by another account',
+          )
+          return
+        }
+      }
+
+      console.log(error)
+    }
   }
 
   useFocusEffect(
@@ -50,7 +100,11 @@ function SignUpScreen({navigation}: SignUpScreenProps) {
         <Text className="text-2xl mb-[23px] text-textSecondary font-isemi">
           Create your account
         </Text>
-        <SignUpForm formikRef={formikRef} initialValues={formInitialValues} />
+        <SignUpForm
+          formikRef={formikRef}
+          initialValues={formInitialValues}
+          handleSubmit={handleSubmitForm}
+        />
       </View>
       <ContinueLine containerStyles="my-[27px]" />
 
