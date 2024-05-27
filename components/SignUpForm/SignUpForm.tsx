@@ -13,16 +13,14 @@ import CheckBoxField from '../Form/CheckboxField/CheckboxField'
 import {icons} from '../../assets/icons'
 
 const SignUpSchema = Yup.object().shape({
-  fullName: Yup.string().required('No name provided'),
-  email: Yup.string()
-    .email('Invalid email address')
-    .required('No email provided'),
+  fullName: Yup.string().required('Обязательное поле'),
+  email: Yup.string().email('Некорректный email').required('Обязательное поле'),
   password: Yup.string()
-    .min(6, 'Password must be at least 6 characters')
-    .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.')
-    .required('No password provided'),
+    .min(6, 'Пароль должен быть не менее 6 символов')
+    .matches(/[a-zA-Z]/, 'Пароль может содержать только латинские буквы.')
+    .required('Обязательное поле'),
   isAgreeWithTerms: Yup.bool()
-    .oneOf([true], 'You must agree to the user agreement')
+    .oneOf([true], 'Вы должны дать согласие на обработку персональных данных')
     .required(),
 })
 
@@ -75,8 +73,8 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
         <View>
           <View className="mb-[12px]">
             <InputField
-              label="Full Name"
-              placeholder="Type your full name"
+              label="ФИО"
+              placeholder="Ваше ФИО"
               iconLeft={icons.User}
               value={values.fullName}
               onChangeText={handleChange('fullName')}
@@ -88,8 +86,8 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
           </View>
           <View className="mb-[12px]">
             <InputField
-              label="Email Address"
-              placeholder="Type your email"
+              label="Email"
+              placeholder="Ваш email"
               iconLeft={icons.UserTag}
               value={values.email}
               onChangeText={handleChange('email')}
@@ -101,8 +99,8 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
           </View>
           <View>
             <PasswordField
-              label="Password"
-              placeholder="Type your password"
+              label="Пароль"
+              placeholder="Ваш пароль"
               iconLeft={icons.Lock}
               value={values.password}
               onChangeText={handleChange('password')}
@@ -122,18 +120,18 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
             }}
             error={errors.isAgreeWithTerms}
             touched={touched.isAgreeWithTerms}>
-            <Text className="ml-[10px] shrink">
+            <Text className="ml-[10px] mt-[2px] shrink">
               <Text className="text-sm font-inter text-textColor">
-                I have read & agreed to DayTask{' '}
+                Я прочитал{' '}
               </Text>
               <Text className="text-sm font-inter text-accent">
-                Privacy Policy, Terms & Condition
+                Пользовательское соглашение
               </Text>
             </Text>
           </CheckBoxField>
           <CustomButton
             onPress={handleSubmit as () => void}
-            text="Sign Up"
+            text="Зарегистрироваться"
             containerStyles="mt-[38px]"
           />
         </View>

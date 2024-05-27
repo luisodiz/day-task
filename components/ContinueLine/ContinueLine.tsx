@@ -11,7 +11,7 @@ const ContinueLine: React.FC<ContinueLineProps> = ({containerStyles}) => {
       className={`flex w-full flex-row items-center ${containerStyles ? containerStyles : ''}`}>
       <View className="h-[1px] flex-1 bg-textColor" />
       <Text className="font-imedium text-textColor px-[13px] bg-primary">
-        Or continue with
+        Или продолжить с
       </Text>
       <View className="h-[1px] flex-1 bg-textColor" />
     </View>

@@ -46,12 +46,13 @@ function SignUpScreen({navigation}: SignUpScreenProps) {
       await sleep(1000)
       const {fullName, email, password} = values
       if (!fullName || !email || !password) {
-        throw new Error('Not all form fields are filled in')
+        throw new Error('Не все поля заполнены')
       }
       const credentials = await auth().createUserWithEmailAndPassword(
         email,
         password,
       )
+      console.log(JSON.stringify(credentials))
       const userId = credentials.user.uid
       await db.ref(`/users/${userId}`).set({
         ...credentials.user.toJSON(),
@@ -61,31 +62,31 @@ function SignUpScreen({navigation}: SignUpScreenProps) {
       navigation.navigate('Index')
     } catch (error) {
       if (isErrorAuthError(error)) {
-        console.log('Authorization: Something went wrong')
+        console.log('Авторизация: Что то пошло не так...')
         if (error.code === 'auth/email-already-in-use') {
-          console.log('The email address is already in use by another account.')
+          console.log('Email адресс уже используется другим аккаунтом')
           formikHelpers.setFieldError(
             'email',
-            'The email address is already in use by another account',
+            'Email адресс уже используется другим аккаунтом',
           )
           return
         }
 
         if (error.code === 'auth/invalid-email') {
-          formikHelpers.setFieldError('email', 'Invalid email address')
+          formikHelpers.setFieldError('email', 'Некорректный email')
           return
         }
 
         if (error.code === 'auth/weak-password') {
           formikHelpers.setFieldError(
             'password',
-            'Password must be at least 6 characters',
+            'Пароль должен быть не менее 6 символов',
           )
           return
         }
 
         if (error.code === 'auth/network-request-failed') {
-          console.log('Network Error')
+          console.log('Ошибка интернет соединения')
           return
         }
       }
@@ -122,7 +123,7 @@ function SignUpScreen({navigation}: SignUpScreenProps) {
           textStyles="text-2xl"
         />
         <Text className="text-2xl mb-[23px] text-textSecondary font-isemi">
-          Create your account
+          Создайте ваш аккаунт
         </Text>
         <SignUpForm
           formikRef={formikRef}
@@ -135,12 +136,14 @@ function SignUpScreen({navigation}: SignUpScreenProps) {
       <CustomButton isOutlined icon={icons.Google} text="Google" />
       <View className="flex flex-row justify-center mt-[25px]">
         <Text className="font-imedium text-base text-textColor">
-          Already have an account?
+          Уже имеете аккаунт?
         </Text>
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={() => navigation.navigate('SignIn')}>
-          <Text className="font-isemi text-base text-accent ml-1">Log in</Text>
+          <Text className="font-isemi text-base text-accent ml-1">
+            Войти в систему
+          </Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

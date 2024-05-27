@@ -51,7 +51,7 @@ function SignInScreen({navigation}: SignInScreenProps) {
           textStyles="text-2xl"
         />
         <Text className="text-2xl mb-[23px] text-textSecondary font-isemi">
-          Welcome Back!
+          Добро пожаловать!
         </Text>
         <SignInForm
           formRef={formRef}
@@ -64,13 +64,13 @@ function SignInScreen({navigation}: SignInScreenProps) {
         <CustomButton isOutlined icon={icons.Google} text="Google" />
         <View className="flex flex-row justify-center mt-[25px]">
           <Text className="font-imedium text-base text-textColor">
-            Don’t have an account?
+            Не имеете аккаунт?
           </Text>
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => navigation.navigate('SignUp')}>
             <Text className="font-isemi text-base text-accent ml-1">
-              Sign Up
+              Зарегистрироваться
             </Text>
           </TouchableOpacity>
         </View>
