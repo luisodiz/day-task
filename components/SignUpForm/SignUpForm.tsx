@@ -1,10 +1,10 @@
 import React from 'react'
 import {Text, View} from 'react-native'
 import {Formik} from 'formik'
-import Toast from 'react-native-toast-message'
-import * as Yup from 'yup'
-import {genSalt, hash} from 'bcrypt-ts'
+import * as yup from 'yup'
 import type {FormikHelpers, FormikProps} from 'formik/dist/types'
+import type {FirebaseAuthTypes} from '@react-native-firebase/auth'
+import auth from '@react-native-firebase/auth'
 
 import InputField from '../Form/InputField/InputField'
 import PasswordField from '../Form/PasswordField/PasswordField'
@@ -12,53 +12,93 @@ import CustomButton from '../CustomButton/CustomButton'
 import CheckBoxField from '../Form/CheckboxField/CheckboxField'
 import {icons} from '../../assets/icons'
 
-const SignUpSchema = Yup.object().shape({
-  fullName: Yup.string().required('Обязательное поле'),
-  email: Yup.string().email('Некорректный email').required('Обязательное поле'),
-  password: Yup.string()
+const schema = yup.object().shape({
+  fullName: yup.string().required('Обязательное поле'),
+  email: yup.string().email('Некорректный email').required('Обязательное поле'),
+  password: yup
+    .string()
     .min(6, 'Пароль должен быть не менее 6 символов')
     .matches(/[a-zA-Z]/, 'Пароль может содержать только латинские буквы.')
     .required('Обязательное поле'),
-  isAgreeWithTerms: Yup.bool()
+  isAgreeWithTerms: yup
+    .bool()
     .oneOf([true], 'Вы должны дать согласие на обработку персональных данных')
     .required(),
 })
 
-export interface SignUpFormValues {
+export interface Values {
   fullName: string
   email: string
   password: string
   isAgreeWithTerms: boolean
 }
 
-interface SignUpFormProps {
-  initialValues: SignUpFormValues
-  formikRef: React.Ref<FormikProps<SignUpFormValues>>
-  handleSubmit: (
-    values: SignUpFormValues,
-    formikHelpers: FormikHelpers<SignUpFormValues>,
-  ) => void | Promise<any>
+interface Props {
+  initialValues: Values
+  formikRef: React.Ref<FormikProps<Values>>
 }
 
-const SignUpForm: React.FC<SignUpFormProps> = ({
-  initialValues,
-  formikRef,
-  handleSubmit,
-}) => {
-  // const showToast = () => {
-  //   Toast.show({
-  //     type: 'success',
-  //     text1: 'NICE AUTHORIZATION',
-  //     position: 'bottom',
-  //   })
-  // }
+const SignUpForm = ({initialValues, formikRef}: Props) => {
+  const handleFormSubmit: (
+    values: Values,
+    formikHelpers: FormikHelpers<Values>,
+  ) => void | Promise<any> = async ({email, password}, actions) => {
+    try {
+      const userCredentials = await auth().createUserWithEmailAndPassword(
+        email,
+        password,
+      )
+      console.log(userCredentials)
+    } catch (error) {
+      if (
+        (error as FirebaseAuthTypes.NativeFirebaseAuthError)?.code ===
+        'auth/email-already-in-use'
+      ) {
+        actions.setFieldError(
+          'email',
+          'Email адресс уже используется другим аккаунтом',
+        )
+        return
+      }
+
+      if (
+        (error as FirebaseAuthTypes.NativeFirebaseAuthError)?.code ===
+        'auth/invalid-email'
+      ) {
+        actions.setFieldError('email', 'Некорректный email')
+        return
+      }
+
+      if (
+        (error as FirebaseAuthTypes.NativeFirebaseAuthError)?.code ===
+        'auth/weak-password'
+      ) {
+        actions.setFieldError(
+          'password',
+          'Пароль должен быть не менее 6 символов',
+        )
+        return
+      }
+
+      if (
+        (error as FirebaseAuthTypes.NativeFirebaseAuthError)?.code ===
+        'auth/network-request-failed'
+      ) {
+        console.log('Ошибка интернет соединения', error)
+        return
+      }
+
+      console.log(error)
+      throw error
+    }
+  }
 
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={handleSubmit}
+      onSubmit={handleFormSubmit}
       innerRef={formikRef}
-      validationSchema={SignUpSchema}>
+      validationSchema={schema}>
       {({
         handleChange,
         handleSubmit,
