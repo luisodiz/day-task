@@ -16,7 +16,6 @@
     "@react-navigation/bottom-tabs": "^6.5.20",
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/native-stack": "^6.9.26",
-    "bcrypt-ts": "^5.0.2",
     "firebase-scrypt": "^2.2.0",
     "formik": "^2.4.6",
     "nativewind": "^2.0.11",
