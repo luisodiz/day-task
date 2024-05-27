@@ -15,13 +15,11 @@ import CustomButton from '../CustomButton/CustomButton'
 import {icons} from '../../assets/icons'
 
 const SignInSchema = Yup.object().shape({
-  email: Yup.string()
-    .email('Invalid email address')
-    .required('No email provided'),
+  email: Yup.string().required('Обязательное поле').email('Некорректный email'),
   password: Yup.string()
-    .min(8, 'PasswordField must be at least 8 characters')
-    .matches(/[a-zA-Z]/, 'PasswordField can only contain Latin letters.')
-    .required('No password provided'),
+    .required('Обязательное поле')
+    .min(8, 'Некорректный пароль')
+    .matches(/[a-zA-Z]/, 'Некорректный пароль'),
 })
 
 export interface SignInFormValues {
@@ -50,8 +48,8 @@ const SignInForm: React.FC<SignInFormProps> = ({
         <View>
           <View className="mb-[12px]">
             <InputField
-              placeholder="Type your email"
-              label="Email Address"
+              placeholder="Email"
+              label="Ваш email"
               iconLeft={icons.UserTag}
               value={values.email}
               onChangeText={handleChange('email')}
@@ -62,8 +60,8 @@ const SignInForm: React.FC<SignInFormProps> = ({
           </View>
           <View className="mb-[12px]">
             <PasswordField
-              placeholder="Type your password"
-              label="Password"
+              placeholder="Пароль"
+              label="Ваш пароль"
               iconLeft={icons.Lock}
               value={values.password}
               onChangeText={handleChange('password')}
@@ -77,12 +75,12 @@ const SignInForm: React.FC<SignInFormProps> = ({
               activeOpacity={0.7}
               className="self-end"
               onPress={onForgotPasswordPress}>
-              <Text className="text-white mt-2">Forgot Password</Text>
+              <Text className="text-white mt-2">Забыли пароль?</Text>
             </TouchableOpacity>
           </View>
           <CustomButton
             onPress={handleSubmit as () => void}
-            text="Log in"
+            text="Войти"
             containerStyles="mt-[38px]"
           />
         </View>

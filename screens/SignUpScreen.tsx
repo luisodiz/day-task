@@ -52,6 +52,7 @@ function SignUpScreen({navigation}: SignUpScreenProps) {
         email,
         password,
       )
+      console.log(JSON.stringify(credentials))
       const userId = credentials.user.uid
       await db.ref(`/users/${userId}`).set({
         ...credentials.user.toJSON(),
@@ -122,7 +123,7 @@ function SignUpScreen({navigation}: SignUpScreenProps) {
           textStyles="text-2xl"
         />
         <Text className="text-2xl mb-[23px] text-textSecondary font-isemi">
-          Create your account
+          Создайте ваш аккаунт
         </Text>
         <SignUpForm
           formikRef={formikRef}
@@ -135,12 +136,14 @@ function SignUpScreen({navigation}: SignUpScreenProps) {
       <CustomButton isOutlined icon={icons.Google} text="Google" />
       <View className="flex flex-row justify-center mt-[25px]">
         <Text className="font-imedium text-base text-textColor">
-          Already have an account?
+          Уже имеете аккаунт?
         </Text>
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={() => navigation.navigate('SignIn')}>
-          <Text className="font-isemi text-base text-accent ml-1">Log in</Text>
+          <Text className="font-isemi text-base text-accent ml-1">
+            Войти в систему
+          </Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

@@ -38,7 +38,7 @@ const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = () => {
           textStyles="text-2xl"
         />
         <Text className="text-2xl mb-[23px] text-textSecondary font-isemi">
-          Enter your email
+          Укажите ваш email
         </Text>
       </View>
       <Formik
@@ -71,7 +71,7 @@ const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = () => {
             <View className="d-flex items-end">
               <CustomButton
                 containerStyles="p-[10px] min-h-[40px] w-2/5"
-                text="Next"
+                text="Далее"
                 onPress={handleSubmit as (e?: any) => void}
               />
             </View>
