@@ -7,6 +7,7 @@ import {
 } from 'react-native'
 import {Formik} from 'formik'
 import * as Yup from 'yup'
+import * as Keychain from 'react-native-keychain'
 import type {FormikProps} from 'formik'
 import auth from '@react-native-firebase/auth'
 import type {FirebaseAuthTypes} from '@react-native-firebase/auth'
@@ -49,8 +50,34 @@ const SignInForm: React.FC<SignInFormProps> = ({
             email,
             password,
           )
-          console.log(credentials)
+          const token = await credentials?.user?.getIdToken()
+
+          if (token) {
+            try {
+              await Keychain.setGenericPassword(
+                credentials.user.uid,
+                JSON.stringify({token}),
+                {service: 'firebaseAuth'},
+              )
+            } catch (err) {
+              console.log('No credentials stored')
+            }
+          }
         } catch (error) {
+          if (
+            (error as FirebaseAuthTypes.NativeFirebaseAuthError)?.code ===
+            'auth/invalid-credential'
+          ) {
+            actions.setFieldError(
+              'email',
+              'Пользователь с таким email или паролем не найден',
+            )
+            actions.setFieldError(
+              'password',
+              'Пользователь с таким email или паролем не найден',
+            )
+          }
+
           if (
             (error as FirebaseAuthTypes.NativeFirebaseAuthError)?.code ===
             'auth/invalid-email'
