@@ -8,6 +8,8 @@ import {
 import {Formik} from 'formik'
 import * as Yup from 'yup'
 import type {FormikProps} from 'formik'
+import auth from '@react-native-firebase/auth'
+import type {FirebaseAuthTypes} from '@react-native-firebase/auth'
 
 import InputField from '../Form/InputField/InputField'
 import PasswordField from '../Form/PasswordField/PasswordField'
@@ -41,7 +43,55 @@ const SignInForm: React.FC<SignInFormProps> = ({
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={values => console.log(values)}
+      onSubmit={async ({email, password}, actions) => {
+        try {
+          const credentials = await auth().signInWithEmailAndPassword(
+            email,
+            password,
+          )
+          console.log(credentials)
+        } catch (error) {
+          if (
+            (error as FirebaseAuthTypes.NativeFirebaseAuthError)?.code ===
+            'auth/invalid-email'
+          ) {
+            actions.setFieldError('email', 'Некорректный email')
+            return
+          }
+
+          if (
+            (error as FirebaseAuthTypes.NativeFirebaseAuthError)?.code ===
+            'auth/user-disabled'
+          ) {
+            actions.setFieldError(
+              'email',
+              'Пользователь с таким email отключен',
+            )
+            return
+          }
+
+          if (
+            (error as FirebaseAuthTypes.NativeFirebaseAuthError)?.code ===
+            'auth/user-not-found'
+          ) {
+            actions.setFieldError(
+              'email',
+              'Пользователь с таким email отсутствует',
+            )
+            return
+          }
+
+          if (
+            (error as FirebaseAuthTypes.NativeFirebaseAuthError)?.code ===
+            'auth/wrong-password'
+          ) {
+            actions.setFieldError('password', 'Неправильный пароль')
+            return
+          }
+
+          console.log('Не удалось пройти аутентификацию.', error)
+        }
+      }}
       validationSchema={SignInSchema}
       innerRef={formRef}>
       {({handleChange, handleSubmit, handleBlur, values, errors, touched}) => (
