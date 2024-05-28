@@ -71,11 +71,12 @@ function SplashScreen({navigation}: SplashScreenProps) {
             className="w-full h-full"
           />
         </View>
-        <Text className="font-psemi text-textSecondary text-[48px] leading-[51px] mb-5">
-          Manage your Task with <Text className="text-accent">DayTask</Text>
+        <Text className="font-psemi text-textSecondary text-[38px] leading-[42px] mb-5">
+          Управляйте своими задачами с{' '}
+          <Text className="text-accent">DayTask</Text>
         </Text>
         <CustomButton
-          text="Let’s Start"
+          text="Начать"
           containerStyles="mt-5"
           onPress={() => navigation.navigate('SignIn')}
         />
