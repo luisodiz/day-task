@@ -1,7 +1,9 @@
 import React from 'react'
 import {View, Text, ScrollView} from 'react-native'
 
-function CalendarTabScreen() {
+import type {TabStack} from '../types'
+
+const CalendarTabScreen = ({}: TabStack.CalendarScreen) => {
   return (
     <ScrollView
       className="bg-primary flex"

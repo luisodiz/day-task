@@ -89,6 +89,8 @@ const SignUpForm = ({initialValues, formikRef}: Props) => {
       }
 
       console.log('Ошибка регистрации пользователя.', error)
+    } finally {
+      actions.resetForm()
     }
   }
 

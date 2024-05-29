@@ -1,7 +1,9 @@
 import React from 'react'
 import {View, Text, ScrollView} from 'react-native'
 
-function ChatTabScreen() {
+import type {TabStack} from '../types'
+
+const ChatTabScreen = ({}: TabStack.ChatScreen) => {
   return (
     <ScrollView
       className="bg-primary flex"

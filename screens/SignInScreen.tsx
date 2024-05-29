@@ -1,8 +1,6 @@
 import React, {useRef, useCallback} from 'react'
 import {ScrollView, Text, TouchableOpacity, View} from 'react-native'
 import {useFocusEffect} from '@react-navigation/native'
-import type {NativeStackScreenProps} from '@react-navigation/native-stack'
-import type {MainStackParams} from '../navigation/MainStackNavigator'
 import type {FormikProps} from 'formik/dist/types'
 
 import Logo from '../components/Logo/Logo'
@@ -11,12 +9,12 @@ import SignInForm, {
 } from '../components/SignInForm/SignInForm'
 import ContinueLine from '../components/ContinueLine/ContinueLine'
 import CustomButton from '../components/CustomButton/CustomButton'
+
+import type {MainStack} from '../types'
+
 import {icons} from '../assets/icons'
 
-interface SignInScreenProps
-  extends NativeStackScreenProps<MainStackParams, 'SignIn'> {}
-
-function SignInScreen({navigation}: SignInScreenProps) {
+const SignInScreen = ({navigation}: MainStack.SignInScreenProps) => {
   const formRef = useRef<FormikProps<SignInFormValues>>(null)
   const formInitialValues: SignInFormValues = {
     email: '',

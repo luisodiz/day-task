@@ -1,7 +1,9 @@
 import React from 'react'
 import {View, Text, ScrollView} from 'react-native'
 
-function NotificationTabScreen() {
+import type {TabStack} from '../types'
+
+const NotificationTabScreen = ({}: TabStack.NotificationsScreen) => {
   return (
     <ScrollView
       className="bg-primary flex"

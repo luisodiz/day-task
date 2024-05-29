@@ -1,20 +1,18 @@
 import React from 'react'
 import {ScrollView, View, Text, TouchableOpacity} from 'react-native'
 import {useFocusEffect} from '@react-navigation/native'
-import type {NativeStackScreenProps} from '@react-navigation/native-stack'
 import type {FormikProps} from 'formik/dist/types'
-import type {MainStackParams} from '../navigation/MainStackNavigator'
 
 import Logo from '../components/Logo/Logo'
 import ContinueLine from '../components/ContinueLine/ContinueLine'
 import CustomButton from '../components/CustomButton/CustomButton'
 import {icons} from '../assets/icons'
 import SignUpForm from '../components/SignUpForm/SignUpForm'
+
+import type {MainStack} from '../types'
 import type {Values as SignUpFormValues} from '../components/SignUpForm/SignUpForm'
 
-interface Props extends NativeStackScreenProps<MainStackParams, 'SignUp'> {}
-
-function SignUpScreen({navigation}: Props) {
+const SignUpScreen = ({navigation}: MainStack.SignUpScreenProps) => {
   const formikRef = React.useRef<FormikProps<SignUpFormValues>>(null)
   const formInitialValues = {
     fullName: '',

@@ -1,13 +1,13 @@
 import React from 'react'
-import {type GestureResponderEvent, ScrollView, Text, View} from 'react-native'
+import {ScrollView, Text, View} from 'react-native'
 import {Formik} from 'formik'
 import * as Yup from 'yup'
-import type {MainStackParams} from '../navigation/MainStackNavigator'
-import type {NativeStackScreenProps} from '@react-navigation/native-stack'
 
 import Logo from '../components/Logo/Logo'
 import InputField from '../components/Form/InputField/InputField'
 import CustomButton from '../components/CustomButton/CustomButton'
+
+import type {MainStack} from '../types'
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -19,10 +19,7 @@ interface InitialValues {
   email: string
 }
 
-interface ForgotPasswordScreenProps
-  extends NativeStackScreenProps<MainStackParams, 'ForgotPassword'> {}
-
-const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = () => {
+const ForgotPasswordScreen = ({}: MainStack.ForgotPasswordScreenProps) => {
   return (
     <ScrollView
       className="bg-primary"
@@ -44,7 +41,7 @@ const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = () => {
       <Formik
         validateOnChange={true}
         initialValues={{email: ''} as InitialValues}
-        onSubmit={(values, formikHelpers) => {
+        onSubmit={values => {
           console.log(values)
         }}
         validationSchema={validationSchema}>

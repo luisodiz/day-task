@@ -7,11 +7,14 @@ import ChatTabScreen from '../screens/ChatTabScreen'
 import CalendarTabScreen from '../screens/CalendarTabScreen'
 import NotificationTabScreen from '../screens/NotificationTabScreen'
 import AddTaskTabScreen from '../screens/AddTaskTabScreen'
+
+import type {TabStack} from '../types'
+
 import {icons} from '../assets/icons'
 
 const fonts = require('../assets/fonts')
 
-const Tab = createBottomTabNavigator()
+const Tab = createBottomTabNavigator<TabStack.Params>()
 
 enum Routes {
   Home = 'Home',
@@ -20,7 +23,7 @@ enum Routes {
   Notifications = 'Notifications',
 }
 
-function TabNavigator() {
+const TabNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({

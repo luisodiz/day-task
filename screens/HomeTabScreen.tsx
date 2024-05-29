@@ -1,7 +1,10 @@
 import React from 'react'
-import {View, Text, ScrollView} from 'react-native'
+import {View, Text, ScrollView, Button} from 'react-native'
+import auth from '@react-native-firebase/auth'
 
-function HomeTabScreen() {
+import type {TabStack} from '../types'
+
+const HomeTabScreen = ({}: TabStack.HomeScreenProps) => {
   return (
     <ScrollView
       className="bg-primary flex"
@@ -9,8 +12,16 @@ function HomeTabScreen() {
         flexGrow: 1,
         padding: 26,
       }}>
-      <View className="flex flex-1 items-center justify-center">
+      <View className="flex flex-1">
         <Text className="text-white font-inter">HomeTabScreen</Text>
+        <Button
+          title="Выйти"
+          onPress={async () => {
+            if (auth().currentUser) {
+              await auth().signOut()
+            }
+          }}
+        />
       </View>
     </ScrollView>
   )

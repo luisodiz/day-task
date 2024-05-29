@@ -50,6 +50,7 @@ const SignInForm: React.FC<SignInFormProps> = ({
             email,
             password,
           )
+
           const token = await credentials?.user?.getIdToken()
 
           if (token) {
@@ -117,6 +118,8 @@ const SignInForm: React.FC<SignInFormProps> = ({
           }
 
           console.log('Не удалось пройти аутентификацию.', error)
+        } finally {
+          actions.resetForm()
         }
       }}
       validationSchema={SignInSchema}

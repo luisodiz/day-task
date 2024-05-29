@@ -1,7 +1,9 @@
 import React from 'react'
 import {View, Text, ScrollView} from 'react-native'
 
-function AddTaskTabScreen() {
+import type {TabStack} from '../types'
+
+const AddTaskTabScreen = ({}: TabStack.AddTaskScreen) => {
   return (
     <ScrollView
       className="bg-primary flex"
