@@ -31,7 +31,7 @@ export namespace MainTab {
     Notifications: undefined
   }
 
-  export type HomeScreenProps = BottomTabScreenProps<Params, 'HomeStack'>
+  export type HomeStackProps = BottomTabScreenProps<Params, 'HomeStack'>
 
   export type AddTaskScreenProps = BottomTabScreenProps<Params, 'AddTask'>
 

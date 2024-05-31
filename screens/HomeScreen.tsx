@@ -1,5 +1,12 @@
 import React from 'react'
-import {View, Text, ScrollView, Button, ImageBackground} from 'react-native'
+import {
+  View,
+  Text,
+  ScrollView,
+  Button,
+  ImageBackground,
+  TouchableOpacity,
+} from 'react-native'
 import {SafeAreaView} from 'react-native-safe-area-context'
 import auth from '@react-native-firebase/auth'
 
@@ -9,7 +16,7 @@ import type {HomeStack} from '../types'
 
 import {images} from '../assets/images'
 
-const HomeScreen = ({}: HomeStack.HomeScreenProps) => {
+const HomeScreen = ({navigation}: HomeStack.HomeScreenProps) => {
   const [user] = useUser()
 
   return (
@@ -28,13 +35,15 @@ const HomeScreen = ({}: HomeStack.HomeScreenProps) => {
                 Александр
               </Text>
             </View>
-            <View>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => navigation.navigate('Profile')}>
               <ImageBackground
                 source={images.profileBg}
                 resizeMode="contain"
                 className="w-[48px] h-[48px] border-r-[50%]"
               />
-            </View>
+            </TouchableOpacity>
           </View>
           <Button
             title="Выйти"

@@ -7,8 +7,15 @@ import type {HomeStack} from '../types'
 const ProfileScreen = ({}: HomeStack.ProfileScreenProps) => {
   return (
     <SafeAreaView className="h-full">
-      <ScrollView>
-        <View className="flex flex-1 items-center justify-center">
+      <ScrollView
+        className="bg-primary flex"
+        contentContainerStyle={{
+          flexGrow: 1,
+          paddingHorizontal: 26,
+          paddingTop: 10,
+          paddingBottom: 26,
+        }}>
+        <View>
           <Text className="text-white font-inter">ProfileScreen</Text>
         </View>
       </ScrollView>

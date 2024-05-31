@@ -11,6 +11,7 @@ import Chat from './icons/chat.svg'
 import Calendar from './icons/calendar.svg'
 import Notifications from './icons/notifications.svg'
 import AddSquare from './icons/addsquare.svg'
+import ArrowLeft from './icons/arrowleft.svg'
 
 export const icons = {
   UserTag,
@@ -26,4 +27,5 @@ export const icons = {
   Calendar,
   Notifications,
   AddSquare,
+  ArrowLeft,
 }
