@@ -12,6 +12,12 @@ import Calendar from './icons/calendar.svg'
 import Notifications from './icons/notifications.svg'
 import AddSquare from './icons/addsquare.svg'
 import ArrowLeft from './icons/arrowleft.svg'
+import ArrowDown from './icons/arrowdown.svg'
+import Edit from './icons/edit.svg'
+import Logout from './icons/logoutcurve.svg'
+import SecurityCard from './icons/securitycard.svg'
+import Task from './icons/task.svg'
+import UserAdd from './icons/useradd.svg'
 
 export const icons = {
   UserTag,
@@ -28,4 +34,10 @@ export const icons = {
   Notifications,
   AddSquare,
   ArrowLeft,
+  ArrowDown,
+  Edit,
+  Logout,
+  SecurityCard,
+  Task,
+  UserAdd,
 }
