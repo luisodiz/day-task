@@ -66,8 +66,16 @@ const MainTabNavigator = () => {
         },
       })}
       initialRouteName="HomeStack">
-      <Tab.Screen name="HomeStack" component={HomeStackNavigator} />
-      <Tab.Screen name="Chat" component={ChatScreen} />
+      <Tab.Screen
+        name="HomeStack"
+        component={HomeStackNavigator}
+        options={{tabBarLabel: 'Главная'}}
+      />
+      <Tab.Screen
+        name="Chat"
+        component={ChatScreen}
+        options={{tabBarLabel: 'Чат'}}
+      />
       <Tab.Screen
         name="AddTask"
         component={AddTaskScreen}
@@ -85,8 +93,16 @@ const MainTabNavigator = () => {
           },
         })}
       />
-      <Tab.Screen name="Calendar" component={CalendarScreen} />
-      <Tab.Screen name="Notifications" component={NotificationTabScreen} />
+      <Tab.Screen
+        name="Calendar"
+        component={CalendarScreen}
+        options={{tabBarLabel: 'Календарь'}}
+      />
+      <Tab.Screen
+        name="Notifications"
+        component={NotificationTabScreen}
+        options={{tabBarLabel: 'Уведомления'}}
+      />
     </Tab.Navigator>
   )
 }
