@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
-import {SafeAreaView} from 'react-native-safe-area-context'
 import auth from '@react-native-firebase/auth'
 
 import type {FirebaseAuthTypes} from '@react-native-firebase/auth'
@@ -36,23 +35,21 @@ const MainStackNavigator = () => {
   }
 
   return (
-    <SafeAreaView className="h-full">
-      <MainStack.Navigator screenOptions={{headerShown: false}}>
-        {!user ? (
-          <>
-            <MainStack.Screen name="Splash" component={SplashScreen} />
-            <MainStack.Screen name="SignIn" component={SignInScreen} />
-            <MainStack.Screen
-              name="ForgotPassword"
-              component={ForgotPasswordScreen}
-            />
-            <MainStack.Screen name="SignUp" component={SignUpScreen} />
-          </>
-        ) : (
-          <MainStack.Screen name="Index" component={TabNavigator} />
-        )}
-      </MainStack.Navigator>
-    </SafeAreaView>
+    <MainStack.Navigator screenOptions={{headerShown: false}}>
+      {!user ? (
+        <>
+          <MainStack.Screen name="Splash" component={SplashScreen} />
+          <MainStack.Screen name="SignIn" component={SignInScreen} />
+          <MainStack.Screen
+            name="ForgotPassword"
+            component={ForgotPasswordScreen}
+          />
+          <MainStack.Screen name="SignUp" component={SignUpScreen} />
+        </>
+      ) : (
+        <MainStack.Screen name="Index" component={TabNavigator} />
+      )}
+    </MainStack.Navigator>
   )
 }
 

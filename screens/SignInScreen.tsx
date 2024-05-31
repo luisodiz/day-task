@@ -1,5 +1,6 @@
 import React, {useRef, useCallback} from 'react'
 import {ScrollView, Text, TouchableOpacity, View} from 'react-native'
+import {SafeAreaView} from 'react-native-safe-area-context'
 import {useFocusEffect} from '@react-navigation/native'
 import type {FormikProps} from 'formik/dist/types'
 
@@ -35,45 +36,47 @@ const SignInScreen = ({navigation}: MainStack.SignInScreenProps) => {
   useFocusEffect(clearForm)
 
   return (
-    <ScrollView
-      className="bg-primary flex"
-      contentContainerStyle={{
-        flexGrow: 1,
-        padding: 26,
-      }}>
-      <View>
-        <Logo
-          iconWidth={92}
-          iconHeight={71}
-          containerStyles="mb-[50px]"
-          textStyles="text-2xl"
-        />
-        <Text className="text-2xl mb-[23px] text-textSecondary font-isemi">
-          Добро пожаловать!
-        </Text>
-        <SignInForm
-          formRef={formRef}
-          initialValues={formInitialValues}
-          onForgotPasswordPress={handleForgotPassword}
-        />
-
-        <ContinueLine containerStyles="my-[27px]" />
-
-        <CustomButton isOutlined icon={icons.Google} text="Google" />
-        <View className="flex flex-row justify-center mt-[25px]">
-          <Text className="font-imedium text-base text-textColor">
-            Не имеете аккаунт?
+    <SafeAreaView className="h-full">
+      <ScrollView
+        className="bg-primary flex"
+        contentContainerStyle={{
+          flexGrow: 1,
+          padding: 26,
+        }}>
+        <View>
+          <Logo
+            iconWidth={92}
+            iconHeight={71}
+            containerStyles="mb-[50px]"
+            textStyles="text-2xl"
+          />
+          <Text className="text-2xl mb-[23px] text-textSecondary font-isemi">
+            Добро пожаловать!
           </Text>
-          <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => navigation.navigate('SignUp')}>
-            <Text className="font-isemi text-base text-accent ml-1">
-              Зарегистрироваться
+          <SignInForm
+            formRef={formRef}
+            initialValues={formInitialValues}
+            onForgotPasswordPress={handleForgotPassword}
+          />
+
+          <ContinueLine containerStyles="my-[27px]" />
+
+          <CustomButton isOutlined icon={icons.Google} text="Google" />
+          <View className="flex flex-row justify-center mt-[25px]">
+            <Text className="font-imedium text-base text-textColor">
+              Не имеете аккаунт?
             </Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => navigation.navigate('SignUp')}>
+              <Text className="font-isemi text-base text-accent ml-1">
+                Зарегистрироваться
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 
