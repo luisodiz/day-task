@@ -8,11 +8,11 @@ import SplashScreen from '../screens/SplashScreen'
 import SignInScreen from '../screens/SignInScreen'
 import SignUpScreen from '../screens/SignUpScreen'
 import ForgotPasswordScreen from '../screens/ForgotPasswordScreen'
-import TabNavigator from './TabNavigator'
+import MainTabNavigator from './MainTabNavigator'
 
-import type {MainStack as MainStackType} from '../types'
+import type {MainStack} from '../types'
 
-const MainStack = createNativeStackNavigator<MainStackType.Params>()
+const Stack = createNativeStackNavigator<MainStack.Params>()
 
 const MainStackNavigator = () => {
   const [initializing, setInitializing] = useState(true)
@@ -35,21 +35,21 @@ const MainStackNavigator = () => {
   }
 
   return (
-    <MainStack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Navigator screenOptions={{headerShown: false}}>
       {!user ? (
         <>
-          <MainStack.Screen name="Splash" component={SplashScreen} />
-          <MainStack.Screen name="SignIn" component={SignInScreen} />
-          <MainStack.Screen
+          <Stack.Screen name="Splash" component={SplashScreen} />
+          <Stack.Screen name="SignIn" component={SignInScreen} />
+          <Stack.Screen
             name="ForgotPassword"
             component={ForgotPasswordScreen}
           />
-          <MainStack.Screen name="SignUp" component={SignUpScreen} />
+          <Stack.Screen name="SignUp" component={SignUpScreen} />
         </>
       ) : (
-        <MainStack.Screen name="Index" component={TabNavigator} />
+        <Stack.Screen name="MainTabs" component={MainTabNavigator} />
       )}
-    </MainStack.Navigator>
+    </Stack.Navigator>
   )
 }
 

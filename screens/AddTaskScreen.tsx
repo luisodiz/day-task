@@ -2,9 +2,9 @@ import React from 'react'
 import {View, Text, ScrollView} from 'react-native'
 import {SafeAreaView} from 'react-native-safe-area-context'
 
-import type {TabStack} from '../types'
+import type {MainTab} from '../types'
 
-const AddTaskTabScreen = ({}: TabStack.AddTaskScreen) => {
+const AddTaskScreen = ({}: MainTab.AddTaskScreenProps) => {
   return (
     <SafeAreaView className="h-full">
       <ScrollView
@@ -21,4 +21,4 @@ const AddTaskTabScreen = ({}: TabStack.AddTaskScreen) => {
   )
 }
 
-export default AddTaskTabScreen
+export default AddTaskScreen

@@ -1,6 +1,5 @@
 import type {NativeStackScreenProps} from '@react-navigation/native-stack'
 import type {BottomTabScreenProps} from '@react-navigation/bottom-tabs'
-import type {FirebaseAuthTypes} from '@react-native-firebase/auth'
 
 export namespace MainStack {
   export type Params = {
@@ -8,7 +7,7 @@ export namespace MainStack {
     SignIn: undefined
     SignUp: undefined
     ForgotPassword: undefined
-    Index: undefined
+    MainTabs: undefined
   }
 
   export type SplashScreenProps = NativeStackScreenProps<Params, 'Splash'>
@@ -23,27 +22,36 @@ export namespace MainStack {
   >
 }
 
-export namespace TabStack {
+export namespace MainTab {
   export type Params = {
-    Home: {
-      user: FirebaseAuthTypes.User | null
-    }
+    HomeStack: undefined
     AddTask: undefined
     Calendar: undefined
     Chat: undefined
     Notifications: undefined
   }
 
-  export type HomeScreenProps = BottomTabScreenProps<Params, 'Home'>
+  export type HomeScreenProps = BottomTabScreenProps<Params, 'HomeStack'>
 
-  export type AddTaskScreen = BottomTabScreenProps<Params, 'AddTask'>
+  export type AddTaskScreenProps = BottomTabScreenProps<Params, 'AddTask'>
 
-  export type CalendarScreen = BottomTabScreenProps<Params, 'Calendar'>
+  export type CalendarScreenProps = BottomTabScreenProps<Params, 'Calendar'>
 
-  export type ChatScreen = BottomTabScreenProps<Params, 'Chat'>
+  export type ChatScreenProps = BottomTabScreenProps<Params, 'Chat'>
 
-  export type NotificationsScreen = BottomTabScreenProps<
+  export type NotificationsScreenProps = BottomTabScreenProps<
     Params,
     'Notifications'
   >
+}
+
+export namespace HomeStack {
+  export type Params = {
+    Home: undefined
+    Profile: undefined
+  }
+
+  export type HomeScreenProps = NativeStackScreenProps<Params, 'Home'>
+
+  export type ProfileScreenProps = NativeStackScreenProps<Params, 'Profile'>
 }

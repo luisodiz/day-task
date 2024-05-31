@@ -5,11 +5,11 @@ import auth from '@react-native-firebase/auth'
 
 import {useUser} from '../hooks/useUser'
 
-import type {TabStack} from '../types'
+import type {HomeStack} from '../types'
 
 import {images} from '../assets/images'
 
-const HomeTabScreen = ({}: TabStack.HomeScreenProps) => {
+const HomeScreen = ({}: HomeStack.HomeScreenProps) => {
   const [user] = useUser()
 
   return (
@@ -50,4 +50,4 @@ const HomeTabScreen = ({}: TabStack.HomeScreenProps) => {
   )
 }
 
-export default HomeTabScreen
+export default HomeScreen

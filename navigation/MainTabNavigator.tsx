@@ -2,28 +2,28 @@ import React from 'react'
 import {TouchableOpacity, View} from 'react-native'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 
-import HomeTabScreen from '../screens/HomeTabScreen'
-import ChatTabScreen from '../screens/ChatTabScreen'
-import CalendarTabScreen from '../screens/CalendarTabScreen'
+import ChatScreen from '../screens/ChatScreen'
+import CalendarScreen from '../screens/CalendarScreen'
 import NotificationTabScreen from '../screens/NotificationTabScreen'
-import AddTaskTabScreen from '../screens/AddTaskTabScreen'
+import AddTaskScreen from '../screens/AddTaskScreen'
+import HomeStackNavigator from './HomeStackNavigator'
 
-import type {TabStack} from '../types'
+import type {MainTab} from '../types'
 
 import {icons} from '../assets/icons'
 
 const fonts = require('../assets/fonts')
 
-const Tab = createBottomTabNavigator<TabStack.Params>()
+const Tab = createBottomTabNavigator<MainTab.Params>()
 
 enum Routes {
-  Home = 'Home',
+  HomeStack = 'HomeStack',
   Chat = 'Chat',
   Calendar = 'Calendar',
   Notifications = 'Notifications',
 }
 
-const TabNavigator = () => {
+const MainTabNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
@@ -41,7 +41,7 @@ const TabNavigator = () => {
         },
         tabBarIcon: ({color}) => {
           switch (route.name as Routes) {
-            case Routes.Home:
+            case Routes.HomeStack:
               return (
                 <icons.Home color={color} className="relative -top-[8px]" />
               )
@@ -65,12 +65,12 @@ const TabNavigator = () => {
           }
         },
       })}
-      initialRouteName="Home">
-      <Tab.Screen name="Home" component={HomeTabScreen} />
-      <Tab.Screen name="Chat" component={ChatTabScreen} />
+      initialRouteName="HomeStack">
+      <Tab.Screen name="HomeStack" component={HomeStackNavigator} />
+      <Tab.Screen name="Chat" component={ChatScreen} />
       <Tab.Screen
         name="AddTask"
-        component={AddTaskTabScreen}
+        component={AddTaskScreen}
         options={({navigation}) => ({
           tabBarButton: () => {
             return (
@@ -85,10 +85,10 @@ const TabNavigator = () => {
           },
         })}
       />
-      <Tab.Screen name="Calendar" component={CalendarTabScreen} />
+      <Tab.Screen name="Calendar" component={CalendarScreen} />
       <Tab.Screen name="Notifications" component={NotificationTabScreen} />
     </Tab.Navigator>
   )
 }
 
-export default TabNavigator
+export default MainTabNavigator

@@ -2,9 +2,9 @@ import React from 'react'
 import {View, Text, ScrollView} from 'react-native'
 import {SafeAreaView} from 'react-native-safe-area-context'
 
-import type {TabStack} from '../types'
+import type {MainTab} from '../types'
 
-const ChatTabScreen = ({}: TabStack.ChatScreen) => {
+const CalendarScreen = ({}: MainTab.CalendarScreenProps) => {
   return (
     <SafeAreaView className="h-full">
       <ScrollView
@@ -14,11 +14,11 @@ const ChatTabScreen = ({}: TabStack.ChatScreen) => {
           padding: 26,
         }}>
         <View className="flex flex-1 items-center justify-center">
-          <Text className="text-white font-inter">ChatTabScreen</Text>
+          <Text className="text-white font-inter">CalendarTabScreen</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
   )
 }
 
-export default ChatTabScreen
+export default CalendarScreen
