@@ -1,8 +1,13 @@
 import React from 'react'
 import {View, ScrollView, Text} from 'react-native'
 import {SafeAreaView} from 'react-native-safe-area-context'
+import {Formik, Form} from 'formik'
+
+import InputField from '../components/Form/InputField/InputField'
 
 import type {HomeStack} from '../types'
+
+import {icons} from '../assets/icons'
 
 const ProfileScreen = ({}: HomeStack.ProfileScreenProps) => {
   return (
@@ -15,9 +20,37 @@ const ProfileScreen = ({}: HomeStack.ProfileScreenProps) => {
           paddingTop: 10,
           paddingBottom: 26,
         }}>
-        <View>
-          <Text className="text-white font-inter">ProfileScreen</Text>
-        </View>
+        <Formik
+          initialValues={{name: '', email: '', password: ''}}
+          onSubmit={values => {
+            console.log(values)
+          }}>
+          {() => (
+            <View>
+              <View className="mb-[26px]">
+                <InputField
+                  placeholder="Ваше имя"
+                  iconLeft={icons.UserAdd}
+                  iconRight={icons.Edit}
+                />
+              </View>
+              <View className="mb-[26px]">
+                <InputField
+                  placeholder="Ваш email"
+                  iconLeft={icons.UserTag}
+                  iconRight={icons.Edit}
+                />
+              </View>
+              <View className="mb-[26px]">
+                <InputField
+                  placeholder="Ваш пароль"
+                  iconLeft={icons.Lock}
+                  iconRight={icons.Edit}
+                />
+              </View>
+            </View>
+          )}
+        </Formik>
       </ScrollView>
     </SafeAreaView>
   )
